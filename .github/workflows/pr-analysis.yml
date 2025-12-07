@@ -1,6 +1,5 @@
-name: PR Analysis
+name: Shell-Guard PR Analysis
 
-# PR 생성 또는 업데이트 시 자동 실행
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -12,21 +11,22 @@ permissions:
 jobs:
   analyze:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout your code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # 전체 히스토리를 가져와서 diff 분석 가능하게 함
+          fetch-depth: 0
 
-      - name: Set up environment
+      - name: Checkout Shell-Guard
+        uses: actions/checkout@v3
+        with:
+          repository: bumfercar/Shell-Guard
+          path: shell-guard
+
+      - name: Setup environment
         run: |
-          # jq 설치 확인 (Ubuntu에 기본 포함되어 있지만 확인)
-          sudo apt-get update
-          sudo apt-get install -y jq
-
-          # patterns.txt 파일 생성 (.gitignore되어 있으므로)
-          cp scripts/config/patterns.txt.example scripts/config/patterns.txt
+          sudo apt-get update && sudo apt-get install -y jq
+          cp shell-guard/scripts/config/patterns.txt.example shell-guard/scripts/config/patterns.txt
 
       - name: Run Shell-Guard Analysis
         env:
@@ -38,6 +38,6 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          chmod +x scripts/main_analyzer.sh
-          chmod +x scripts/modules/*.sh
-          bash scripts/main_analyzer.sh
+          chmod +x shell-guard/scripts/main_analyzer.sh
+          chmod +x shell-guard/scripts/modules/*.sh
+          bash shell-guard/scripts/main_analyzer.sh
