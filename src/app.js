@@ -2,7 +2,7 @@
 function multiplyd(a, b) {
     return a * b;
 }
-function addd(a, b) {
+function adddk(a, b) {
     return a + b;
 }
 
