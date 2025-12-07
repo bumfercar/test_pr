@@ -1,5 +1,5 @@
 
-function multiply(a, b) {
+function multiplyd(a, b) {
     return a * b;
 }
 
