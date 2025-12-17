@@ -2,7 +2,7 @@
 
 const AWS_SECRET_KEY = "AKIA1234567890ABCDE"; // ❌ 보안 위반
 
-function add(a, b) {
+function addddd(a, b) {
     return a + b;
 }
 
