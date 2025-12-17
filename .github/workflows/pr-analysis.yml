@@ -1,5 +1,8 @@
 name: Shell-Guard Security Check
-
+- name: Prepare patterns file
+  run: |
+    cp shell-guard-tool/scripts/config/patterns.txt.example \
+       shell-guard-tool/scripts/config/patterns.txt
 on:
   pull_request:
     types: [opened, synchronize]
